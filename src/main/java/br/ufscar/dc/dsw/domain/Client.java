@@ -12,6 +12,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
  
 @Entity
 @Table(name = "Client")
@@ -33,6 +38,9 @@ public class Client extends User {
     private String birthday;
 
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	@JsonIdentityInfo(
+	generator = ObjectIdGenerators.PropertyGenerator.class, 
+	property = "id")
     private List<Rental> rentals;
 	
 	public String getCpf() {

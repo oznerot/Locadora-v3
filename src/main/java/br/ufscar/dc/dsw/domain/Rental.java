@@ -11,6 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @SuppressWarnings("serial")
 @Entity
 @UniqueRental
@@ -28,11 +33,17 @@ public class Rental extends AbstractEntity<Long> {
 	@NotNull
     @ManyToOne
     @JoinColumn(name = "client_id")
+	@JsonIdentityInfo(
+	generator = ObjectIdGenerators.PropertyGenerator.class, 
+	property = "id")
     private Client client;
 
     @NotNull
 	@ManyToOne
 	@JoinColumn(name = "company_id")
+	@JsonIdentityInfo(
+	generator = ObjectIdGenerators.PropertyGenerator.class, 
+	property = "id")
 	private Company company;
 
 	public String getDate() {
