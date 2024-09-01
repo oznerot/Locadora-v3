@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.ufscar.dc.dsw.domain.Client;
 import br.ufscar.dc.dsw.service.spec.IClientService;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class ClientREST
@@ -51,4 +53,16 @@ public class ClientREST
         service.save(client);
         return ResponseEntity.ok(client);
     }
+
+    // não testei
+    //retorna cliente por id
+    @GetMapping(path = "/clients/{id}")
+    public ResponseEntity<Client> read(@PathVariable("id") Long id){
+        Client client = service.findById(id);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(client);
+    }
+    
 }
