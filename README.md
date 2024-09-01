@@ -43,7 +43,7 @@ O sistema deve incorporar os seguintes requisitos:
     - Remove a locadora de id = {id} [**D**elete - **CRUD**]
     DELETE http://localhost:8080/locadoras/{id}
 
-- REST API -- Retorna a lista de locações [Read - **CRUD**]
+- REST API -- Retorna a lista de locações [**R**ead - **CRUD**]
 GET http://localhost:8080/locacoes
 
 - REST API -- Retorna a locação de id = {id} [**R**ead - **CRUD**]
