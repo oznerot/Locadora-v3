@@ -12,6 +12,8 @@ import br.ufscar.dc.dsw.domain.User;
 @SuppressWarnings("unchecked")
 public interface IRentalDAO extends CrudRepository<Rental, Long>{
 
+	List<Rental> findAll();
+	
 	Rental findById(long id);
 
 	@Query("SELECT rental FROM Rental rental WHERE rental.client.id = ?1")

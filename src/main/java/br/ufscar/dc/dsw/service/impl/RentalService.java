@@ -37,6 +37,12 @@ public class RentalService implements IRentalService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<Rental> findAll()
+	{
+		return dao.findAll();
+	}
+
+	@Transactional(readOnly = true)
 	public List<Rental> findAllByClient(Long id) {
 		return dao.findAllByClient(id);
 	}

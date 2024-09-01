@@ -25,9 +25,7 @@ public class ClientREST
     @Autowired
     private IClientService service;
 
-
-
-    @GetMapping(path = "/clients")
+    @GetMapping(path = "/clientes")
     public ResponseEntity<List<Client>> list()
     {
         List<Client> list = service.findAll();
@@ -38,17 +36,19 @@ public class ClientREST
 
         return ResponseEntity.ok(list);
     }
-    
-    @PostMapping(path = "/clients")
-    @ResponseBody
-    public ResponseEntity<Client> insert(@Valid @RequestBody Client client, BindingResult result)
-    {
-        if(result.hasErrors())
-        {
-            return ResponseEntity.badRequest().body(null);
-        }
 
-        service.save(client);
-        return ResponseEntity.ok(client);
+    @DeleteMapping(path = "/clientes/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") long id)
+    {
+        Client client = service.findById(id);
+
+        if(client == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        
+        service.delete(id);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
+
 }

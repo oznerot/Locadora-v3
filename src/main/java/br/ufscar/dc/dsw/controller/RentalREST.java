@@ -15,12 +15,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufscar.dc.dsw.domain.Client;
-import br.ufscar.dc.dsw.service.spec.IClientService;
+import br.ufscar.dc.dsw.domain.Rental;
+import br.ufscar.dc.dsw.service.spec.IRentalService;
 import jakarta.validation.Valid;
 
 @RestController
-public RentalREST
+public class RentalREST
 {
+    @Autowired
+    private IRentalService service;
 
+    @GetMapping(path = "/locacoes")
+    public ResponseEntity<List<Rental>> list()
+    {
+        List<Rental> list = service.findAll();
+        if(list.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(path = "/locacoes/clientes/{id}")
+    public ResponseEntity<List<Rental>> listClientRentals(@PathVariable("id") Long id)
+    {
+        List<Rental> list = service.findAllByClient(id);
+        System.out.println("Tamanho da Lista: " + list.size());
+        
+        if(list.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(list);
+    }
 }

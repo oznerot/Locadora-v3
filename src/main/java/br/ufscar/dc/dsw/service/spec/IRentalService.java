@@ -8,6 +8,8 @@ public interface IRentalService {
 
 	Rental findById(Long id);
 
+	List<Rental> findAll();
+
 	List<Rental> findAllByClient(Long id);
 
 	List<Rental> findAllByCompany(Long id);

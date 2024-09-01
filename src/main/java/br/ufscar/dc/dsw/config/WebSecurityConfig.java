@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 import br.ufscar.dc.dsw.security.MyUserDetailsServiceImpl;
 
@@ -47,16 +48,14 @@ public class WebSecurityConfig
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests((authz) -> authz
-                		.requestMatchers("/", "/index", "/error").permitAll()
-						.requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
-						.requestMatchers("/rentals/list", "/companies/").permitAll()
-						.requestMatchers("/admin/**").permitAll()
-						.requestMatchers("/clients/**").permitAll()
-						.requestMatchers("/companies/**").permitAll()
-						.requestMatchers("/rentals/register").permitAll()
-						.requestMatchers("/rentals/list").permitAll()
+                		.requestMatchers("/clientes", "/locadoras", "/locacoes").permitAll()
+						.requestMatchers("/clientes/*", "/locadoras/*").permitAll()
+						.requestMatchers("/locacoes/*").permitAll()
+						.requestMatchers("/locacoes/cidades/*").permitAll()
+						.requestMatchers("/locacoes/clientes/*").permitAll()
+						.requestMatchers("/locacoes/locadoras/*").permitAll()
 						.anyRequest().authenticated())
 			.formLogin((form) -> form
 						.loginPage("/login")
@@ -66,4 +65,4 @@ public class WebSecurityConfig
 
         return http.build();
     }
-}
+} 
