@@ -6,6 +6,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -48,13 +49,15 @@ public class WebSecurityConfig
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+			.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/", "/index", "/error").permitAll()
                         .requestMatchers("/login/", "/js/", "/css/", "/image/", "/webjars/").permitAll()
                         .requestMatchers("/locadoras/list", "/locadoras/").permitAll()
                         .requestMatchers("/admin/").permitAll()
                         .requestMatchers("/clientes/").permitAll()
-                        .requestMatchers("/locadoras/").permitAll()
+						.requestMatchers("/clientes/**").permitAll()
+                        .requestMatchers("/locadoras/**").permitAll()
                         .requestMatchers("/locadoras/register").permitAll()
                         .requestMatchers("/locadoras/list").permitAll()
                         .requestMatchers("/locacoes/**").permitAll()
