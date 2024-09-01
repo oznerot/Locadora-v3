@@ -1,3 +1,7 @@
+package br.ufscar.dc.dsw.controller;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,33 @@ public class CompanyREST
 {
     @Autowired
     private ICompanyService service;
+
+    //listar locadoras
+    @GetMapping(path = "/locadoras")
+    public ResponseEntity<List<Company>> list()
+    {
+        List<Company> list = service.findAll();
+        if(list.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(list);
+    }
+
+    //adicionar locadora
+    @PostMapping(path = "/locadoras")
+    @ResponseBody
+    public ResponseEntity<Company> insert(@Valid @RequestBody Company company, BindingResult result)
+    {
+        if(result.hasErrors())
+        {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        service.save(company);
+        return ResponseEntity.ok(company);
+    }
 
     //nao testei
     //retorna locadora por id

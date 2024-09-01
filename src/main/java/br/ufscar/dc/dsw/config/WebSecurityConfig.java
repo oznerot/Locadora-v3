@@ -49,20 +49,22 @@ public class WebSecurityConfig
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((authz) -> authz
-                		.requestMatchers("/", "/index", "/error").permitAll()
-						.requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
-						.requestMatchers("/rentals/list", "/companies/").permitAll()
-						.requestMatchers("/admin/**").permitAll()
-						.requestMatchers("/clients/**").permitAll()
-						.requestMatchers("/companies/**").permitAll()
-						.requestMatchers("/rentals/register").permitAll()
-						.requestMatchers("/rentals/list").permitAll()
-						.anyRequest().authenticated())
-			.formLogin((form) -> form
-						.loginPage("/login")
-						.permitAll())
-			.logout((logout) -> logout
-						.logoutSuccessUrl("/").permitAll());
+                        .requestMatchers("/", "/index", "/error").permitAll()
+                        .requestMatchers("/login/", "/js/", "/css/", "/image/", "/webjars/").permitAll()
+                        .requestMatchers("/locadoras/list", "/locadoras/").permitAll()
+                        .requestMatchers("/admin/").permitAll()
+                        .requestMatchers("/clientes/").permitAll()
+                        .requestMatchers("/locadoras/").permitAll()
+                        .requestMatchers("/locadoras/register").permitAll()
+                        .requestMatchers("/locadoras/list").permitAll()
+                        .requestMatchers("/locacoes/**").permitAll()
+                        .requestMatchers("/locacoes/").permitAll()
+                        .anyRequest().authenticated())
+            .formLogin((form) -> form
+                        .loginPage("/login")
+                        .permitAll())
+            .logout((logout) -> logout
+                        .logoutSuccessUrl("/").permitAll());
 
         return http.build();
     }
