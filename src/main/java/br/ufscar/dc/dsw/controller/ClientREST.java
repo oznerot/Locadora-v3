@@ -184,15 +184,5 @@ public class ClientREST
         {
 			client.setBirthday(json.get("birthday").toString());
 		}
-
-		if(json.containsKey("rentals"))
-        {
-			// Verifica se o valor associado à chave é realmente uma lista
-			Object rentals = json.get("rentals");
-			if(rentals instanceof List)
-            {
-				client.setRentals((List<Rental>) rentals);
-			}
-		}
 	}
 }

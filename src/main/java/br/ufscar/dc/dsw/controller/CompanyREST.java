@@ -177,15 +177,5 @@ public class CompanyREST
         {
 			company.setCity(json.get("city").toString());
 		}
-		
-        if(json.containsKey("rentals"))
-        {
-			// Verifica se o valor associado à chave é realmente uma lista
-			Object rentals = json.get("rentals");
-			if(rentals instanceof List)
-            {
-				company.setRentals((List<Rental>) rentals);
-			}
-		}
 	}
 }
