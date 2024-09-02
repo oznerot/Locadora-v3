@@ -25,6 +25,7 @@ public class RentalREST
     @Autowired
     private IRentalService service;
 
+    //READ: Retorna lista de locacoes GET http://localhost:8080/locacoes
     @GetMapping(path = "/locacoes")
     public ResponseEntity<List<Rental>> list()
     {
@@ -37,6 +38,17 @@ public class RentalREST
         return ResponseEntity.ok(list);
     }
 
+    //READ: Retorna uma locacao GET http://localhost:8080/locadoras/{id}
+    @GetMapping(path = "/locacoes/{id}")
+    public ResponseEntity<Rental> read(@PathVariable("id") Long id)
+    {
+        Rental rental = service.findById(id);
+        if (rental == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rental);
+    }
+    //READ: Retorna lista de locacoes por cliente  GET http://localhost:8080/locacoes/clientes/{id}
     @GetMapping(path = "/locacoes/clientes/{id}")
     public ResponseEntity<List<Rental>> listClientRentals(@PathVariable("id") Long id)
     {
@@ -49,5 +61,16 @@ public class RentalREST
         }
 
         return ResponseEntity.ok(list);
+    }
+    //READ: Retorna lista de locacoes por locadora GET http://localhost:8080/locacoes/locadoras/{id}
+    @GetMapping(path = "/locacoes/locadoras/{id}") 
+    public ResponseEntity<List<Rental>> listCompanyRentals(@PathVariable("id") Long id)
+    {
+        List<Rental> rentals = service.findAllByCompany(id);
+        if(rentals.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rentals);
     }
 }

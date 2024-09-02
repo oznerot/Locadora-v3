@@ -103,6 +103,12 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -118,8 +124,8 @@
 							<goal>native2ascii</goal>
 						</goals>
 						<configuration>
-							<dest>target/classes</dest>
-							<src>src/main/resources</src>
+							<dest>C:\Users\arcoc\github\Locadora-v3\target\classes</dest>
+							<src>C:\Users\arcoc\github\Locadora-v3\src\main\resources</src>
 							<encoding>UTF-8</encoding>
 						</configuration>
 					</execution>
